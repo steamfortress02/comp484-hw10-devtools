@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Your Giga Pet</title>
+    <meta name="description" content="Interactive Giga Pet web game built with jQuery">
+    <link id="favicon" rel="icon" href="images/meowth.jpg" type="image/jpeg">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <header>
+      <h1>
+        This is your Giga Pet
+      </h1>
+      <p class="subtitle">Take care of your pet by feeding, playing, exercising, and letting it nap!</p>
+    </header>
+
+    <main class="pet-card">
+      <section class="pet-image-container">
+        <!-- Replaced starter image with Meowth image -->
+        <img class="pet-image" src="images/meowth.jpg" alt="Meowth Giga Pet">
+        <p class="pet-hint">Tip: Click Meowth to give him a scratch behind the ears!</p>
+      </section>
+
+      <section class="dashboard">
+        <div class="stat-row">Name: <strong><span class="name"></span></strong></div>
+        <div class="stat-row">Weight: <strong><span class="weight"></span> pounds</strong></div>
+        <div class="stat-row">Happiness: <strong><span class="happiness"></span> purrs (per min)</strong></div>
+        <!-- New behavior stat correlated with the Nap action button -->
+        <div class="stat-row">
+          Energy: <strong><span class="energy"></span>%</strong>
+          <div class="energy-bar-track" aria-hidden="true">
+            <div class="energy-bar-fill"></div>
+          </div>
+        </div>
+        <div class="stat-row">Mood: <strong><span class="mood"></span></strong></div>
+
+        <!-- Visual notification area for pet comments (no console.log or alert used) -->
+        <div class="notification-wrapper">
+          <div class="pet-notification" role="status" aria-live="polite"></div>
+          <button type="button" class="clear-notification-button" title="Clear pet message">Clear</button>
+        </div>
+
+        <div class="button-container">
+          <button type="button" class="treat-button">
+            Treat
+          </button>
+          <button type="button" class="play-button">
+            Play
+          </button>
+          <button type="button" class="exercise-button">
+            Exercise
+          </button>
+          <!-- New action button added per project requirements -->
+          <button type="button" class="nap-button">
+            Nap
+          </button>
+          <button type="button" class="sound-toggle-button" aria-pressed="true">
+            Sound: On
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <!-- Load jQuery library before script.js -->
+    <script src="https://code.jquery.com/jquery-2.2.1.min.js"
+            integrity="sha256-gvQgAFzTH6trSrAWoH1iPo9Xc96QxSZ3feW6kem+O00="
+            crossorigin="anonymous"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
