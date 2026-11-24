@@ -5,7 +5,7 @@
 body {
   font-family: "Segoe UI", Helvetica, Arial, sans-serif;
   margin: 0;
-  padding: 32px 24px;
+  padding: 18px 20px;
   background: linear-gradient(135deg, #f8fafc 0%, #eef2ff 100%);
   color: #1e293b;
   min-height: 100vh;
@@ -13,8 +13,8 @@ body {
 
 header {
   max-width: 780px;
-  margin: 0 auto 24px auto;
-  padding-bottom: 12px;
+  margin: 0 auto 14px auto;
+  padding-bottom: 8px;
   border-bottom: 2px solid #cbd5e1;
 }
 
@@ -37,22 +37,22 @@ h1 {
   background-color: #ffffff;
   border-radius: 16px;
   box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
-  padding: 28px;
+  padding: 20px 22px;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 28px;
+  gap: 20px;
 }
 
 .pet-image-container {
   flex: 0 0 auto;
   text-align: center;
-  padding: 8px;
+  padding: 4px;
 }
 
 .pet-image {
-  max-height: 260px;
-  max-width: 280px;
+  max-height: 215px;
+  max-width: 240px;
   width: auto;
   height: auto;
   object-fit: contain;
@@ -227,4 +227,116 @@ h1 {
 
 .button-container .sound-toggle-button:hover {
   background-color: #334155;
+}
+
+/* Bonus Treats control for Sources panel debugging */
+.bonus-treat-row {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px dashed #cbd5e1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.bonus-treat-row label {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #334155;
+}
+
+#bonus-treat-count {
+  width: 64px;
+  padding: 6px 8px;
+  font-size: 0.95rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+}
+
+.bonus-treat-button {
+  padding: 7px 14px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #ffffff;
+  background-color: #0f766e;
+  border: 1px solid #0d9488;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.bonus-treat-button:hover {
+  background-color: #115e59;
+}
+
+/* HW10 DevTools Diagnostics Panel */
+.devtools-panel {
+  max-width: 780px;
+  margin: 14px auto 0 auto;
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+  padding: 16px 22px;
+}
+
+.devtools-panel h2 {
+  margin: 0 0 12px 0;
+  font-size: 1.1rem;
+  color: #0f172a;
+}
+
+.devtools-group {
+  margin-top: 10px;
+}
+
+.devtools-group h3 {
+  margin: 0 0 8px 0;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #475569;
+}
+
+.devtools-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.devtools-buttons button {
+  padding: 7px 12px;
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: #f8fafc;
+  background-color: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.15s ease, transform 0.1s ease;
+}
+
+.devtools-buttons button:hover {
+  background-color: #334155;
+  transform: translateY(-1px);
+}
+
+.devtools-buttons .demo-404-button,
+.devtools-buttons .demo-typeerror-button {
+  background-color: #b91c1c;
+  border-color: #991b1b;
+}
+
+.devtools-buttons .demo-404-button:hover,
+.devtools-buttons .demo-typeerror-button:hover {
+  background-color: #991b1b;
+}
+
+.devtools-buttons .demo-violation-button {
+  background-color: #b45309;
+  border-color: #92400e;
+}
+
+.devtools-buttons .demo-violation-button:hover {
+  background-color: #92400e;
 }

@@ -29,6 +29,27 @@ $(function () {
   $('.clear-notification-button').on('click', clearPetNotification);
   $('.pet-image').on('click', clickedPetImage);
   $('.sound-toggle-button').on('click', toggleSound);
+
+  // HW10 DevTools diagnostics and debugging bindings
+  $('.bonus-treat-button').on('click', clickedBonusTreatButton);
+  $('.demo-info-button').on('click', logInfoDemo);
+  $('.demo-warn-button').on('click', logWarningDemo);
+  $('.demo-error-button').on('click', logErrorDemo);
+  $('.demo-table-button').on('click', logTableDemo);
+  $('.demo-group-button').on('click', logGroupDemo);
+  $('.demo-custom-button').on('click', logCustomDemo);
+  $('.demo-all-logs-button').on('click', runAllConsoleLogs);
+  $('.demo-404-button').on('click', trigger404Demo);
+  $('.demo-typeerror-button').on('click', triggerTypeErrorDemo);
+  $('.demo-violation-button').on('click', triggerViolationDemo);
+
+  // Log initial startup banner and pet status to the Console
+  logCustomDemo();
+  console.info('[GigaPet Info] Dashboard initialized for ' + pet_info.name, {
+    weight: pet_info.weight,
+    happiness: pet_info.happiness,
+    energy: pet_info.energy
+  });
 });
 
 // Object holding the pet's core attributes and the new energy attribute
@@ -127,12 +148,19 @@ function clickedPlayButton() {
 
 /**
  * Exercises the pet: reduces happiness, weight, and energy.
+ * Also emits practical DevTools warning/error diagnostics when energy is low or depleted.
  */
 function clickedExerciseButton() {
+  if (pet_info.energy === 0) {
+    console.error('[GigaPet Error] Invalid action: Meowth cannot exercise with 0% energy!');
+  }
   pet_info.happiness -= 1;
   pet_info.weight -= 1;
   pet_info.energy -= 10;
   checkAndUpdatePetInfoInHtml();
+  if (pet_info.energy > 0 && pet_info.energy <= 20) {
+    console.warn('[GigaPet Warning] Meowth energy is low (' + pet_info.energy + '%). Click Nap soon!');
+  }
   triggerPetAnimation('animate-bounce');
   playPetSound(330);
   showPetNotification(getMeowthQuote('exercise'));
@@ -294,4 +322,134 @@ function updatePetInfoInHtml() {
   if (energyBar) {
     energyBar.style.width = pet_info.energy + '%';
   }
+}
+
+/* ==========================================================================
+ * HW10: Chrome DevTools Console Logging, Browser Diagnostics & Debugging
+ * ========================================================================== */
+
+// Structured pet action metadata displayed using console.table()
+var petActionTable = [
+  { action: 'Treat',    happiness: '+2', weight: '+1', energy: '0',   soundHz: 587 },
+  { action: 'Play',     happiness: '+3', weight: '-1', energy: '-10', soundHz: 659 },
+  { action: 'Exercise', happiness: '-1', weight: '-1', energy: '-10', soundHz: 330 },
+  { action: 'Nap',      happiness: '+1', weight: '0',  energy: '+25', soundHz: 440 }
+];
+
+/**
+ * Feeds bonus treats based on the numeric input field.
+ * Fixed: parses the string input value as a base-10 integer before adding.
+ */
+function clickedBonusTreatButton() {
+  var currentHappiness = pet_info.happiness;
+  // FIXED (HW10 Debugging Demo): Convert string input to an integer with parseInt()
+  // before adding so 5 + 3 = 8 instead of string concatenation ("53").
+  var bonusTreats = parseInt(document.getElementById('bonus-treat-count').value, 10);
+  if (isNaN(bonusTreats) || bonusTreats < 1) {
+    bonusTreats = 1;
+  }
+  var newHappiness = currentHappiness + bonusTreats;
+  pet_info.happiness = newHappiness;
+  pet_info.weight += 1;
+  checkAndUpdatePetInfoInHtml();
+  triggerPetAnimation('animate-bounce');
+  playPetSound(587);
+  showPetNotification("Nice! " + bonusTreats + " bonus treats boosted my happiness to " + pet_info.happiness + "!");
+}
+
+/**
+ * Part 2.1 - Log Info: Demonstrates console.info() and console.log().
+ */
+function logInfoDemo() {
+  console.info('[GigaPet Info] Current Meowth status:', {
+    name: pet_info.name,
+    weight: pet_info.weight,
+    happiness: pet_info.happiness,
+    energy: pet_info.energy
+  });
+  console.log('[GigaPet Log] Mood check:', getPetMood());
+}
+
+/**
+ * Part 2.1 - Log Warning: Demonstrates console.warn().
+ */
+function logWarningDemo() {
+  console.warn('[GigaPet Warning] Meowth energy is running low (' + pet_info.energy + '%). Click Nap soon!');
+}
+
+/**
+ * Part 2.1 - Log Error: Demonstrates console.error().
+ */
+function logErrorDemo() {
+  console.error('[GigaPet Error] Invalid action: Meowth cannot sprint with 0% energy!');
+}
+
+/**
+ * Part 2.1 - Log Table: Demonstrates console.table() on structured project data.
+ */
+function logTableDemo() {
+  console.table(petActionTable);
+}
+
+/**
+ * Part 2.1 - Log Group: Demonstrates console.group() and console.groupEnd().
+ */
+function logGroupDemo() {
+  console.group('Meowth State Snapshot (' + getPetMood() + ')');
+  console.log('Name:', pet_info.name);
+  console.log('Weight (lbs):', pet_info.weight);
+  console.log('Happiness (purrs/min):', pet_info.happiness);
+  console.log('Energy (%):', pet_info.energy);
+  console.groupEnd();
+}
+
+/**
+ * Part 2.1 - Log Custom: Demonstrates custom CSS-styled console output with %c.
+ */
+function logCustomDemo() {
+  console.log(
+    '%c Meowth Giga Pet %c DevTools Diagnostics Active ',
+    'background: #f59e0b; color: #0f172a; font-weight: bold; font-size: 13px; padding: 4px 10px; border-radius: 4px 0 0 4px;',
+    'background: #1e293b; color: #fef3c7; font-weight: bold; font-size: 13px; padding: 4px 10px; border-radius: 0 4px 4px 0;'
+  );
+}
+
+/**
+ * Convenience helper to emit all six console log types together for filtering demos.
+ */
+function runAllConsoleLogs() {
+  logCustomDemo();
+  logInfoDemo();
+  logWarningDemo();
+  logErrorDemo();
+  logGroupDemo();
+  logTableDemo();
+}
+
+/**
+ * Part 2.2 - 404 Network Error: Requests a non-existent file so the browser logs a 404 error.
+ */
+function trigger404Demo() {
+  fetch('api/missing-meowth-treats.json');
+}
+
+/**
+ * Part 2.2 - TypeError: Invokes a method on undefined so the browser logs an Uncaught TypeError.
+ */
+function triggerTypeErrorDemo() {
+  var uninitializedToy = undefined;
+  // Intentionally invoke a method on undefined to trigger a browser-logged TypeError
+  uninitializedToy.squeak();
+}
+
+/**
+ * Part 2.2 - Violation: Blocks the main thread (~350ms) inside a click handler so
+ * Chrome logs a [Violation] 'click' handler took XXXms diagnostic (visible at Verbose level).
+ */
+function triggerViolationDemo() {
+  var start = performance.now();
+  while (performance.now() - start < 350) {
+    // Synchronous busy-wait loop to trigger long click-handler violation
+  }
+  showPetNotification("Whoa, dat slow click handler froze my paws for 350ms!");
 }

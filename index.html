@@ -61,8 +61,40 @@
             Sound: On
           </button>
         </div>
+
+        <!-- Bonus Treats calculator used to demonstrate Sources panel debugging -->
+        <div class="bonus-treat-row">
+          <label for="bonus-treat-count">Bonus Treats:</label>
+          <input type="number" id="bonus-treat-count" value="3" min="1" max="10">
+          <button type="button" class="bonus-treat-button">Feed Bonus Treats</button>
+        </div>
       </section>
     </main>
+
+    <!-- HW10 Chrome DevTools Diagnostics & Console Logging Panel -->
+    <section class="devtools-panel">
+      <h2>Chrome DevTools Diagnostics Panel</h2>
+      <div class="devtools-group">
+        <h3>Console Message Logging</h3>
+        <div class="devtools-buttons">
+          <button type="button" class="demo-info-button">Log Info</button>
+          <button type="button" class="demo-warn-button">Log Warning</button>
+          <button type="button" class="demo-error-button">Log Error</button>
+          <button type="button" class="demo-table-button">Log Table</button>
+          <button type="button" class="demo-group-button">Log Group</button>
+          <button type="button" class="demo-custom-button">Log Custom (%c)</button>
+          <button type="button" class="demo-all-logs-button">Run All Logs</button>
+        </div>
+      </div>
+      <div class="devtools-group">
+        <h3>Browser-Logged Diagnostics</h3>
+        <div class="devtools-buttons">
+          <button type="button" class="demo-404-button">Trigger 404 Error</button>
+          <button type="button" class="demo-typeerror-button">Trigger TypeError</button>
+          <button type="button" class="demo-violation-button">Trigger Violation</button>
+        </div>
+      </div>
+    </section>
 
     <!-- Load jQuery library before script.js -->
     <script src="https://code.jquery.com/jquery-2.2.1.min.js"
